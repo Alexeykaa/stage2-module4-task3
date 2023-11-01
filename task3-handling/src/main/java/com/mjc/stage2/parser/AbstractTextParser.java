@@ -18,4 +18,10 @@ public abstract class AbstractTextParser {
     protected void setNextParser(AbstractTextParser nextParser) {
         this.nextParser = nextParser;
     }
+
+    protected void doNextParse(AbstractTextComponent abstractTextComponent, String string) {
+        if (nextParser != null) {
+            nextParser.parse(abstractTextComponent, string);
+        }
+    }
 }

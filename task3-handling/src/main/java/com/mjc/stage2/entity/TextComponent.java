@@ -5,7 +5,6 @@ import java.util.List;
 
 public class TextComponent extends AbstractTextComponent {
     protected List<AbstractTextComponent> componentList = new ArrayList<>();
-    private int size = 0;
 
     public TextComponent(TextComponentType componentType) {
         super(componentType);
@@ -13,21 +12,25 @@ public class TextComponent extends AbstractTextComponent {
 
     @Override
     public String operation() {
-        return null;
+        String s = componentList.stream().reduce("", (a, i) -> {
+            a.concat(i.operation()).concat(componentType.getDelimiter());
+            return a;
+        }, (x, y) -> x + y);
+        return s;
     }
 
     @Override
     public void add(AbstractTextComponent textComponent) {
-
+        componentList.add(textComponent);
     }
 
     @Override
     public void remove(AbstractTextComponent textComponent) {
-
+        componentList.remove(textComponent);
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return componentList.size();
     }
 }
