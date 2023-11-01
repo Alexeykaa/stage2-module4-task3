@@ -12,11 +12,9 @@ public class TextComponent extends AbstractTextComponent {
 
     @Override
     public String operation() {
-        String s = componentList.stream().reduce("", (a, i) -> {
-            a.concat(i.operation()).concat(componentType.getDelimiter());
-            return a;
-        }, (x, y) -> x + y);
-        return s;
+        return componentList.stream().reduce("",
+                (a, i) -> String.join(componentType.getDelimiter(), a, i.operation()),
+                (x, y) -> x + y).replaceFirst(componentType.getDelimiter(), "");
     }
 
     @Override
